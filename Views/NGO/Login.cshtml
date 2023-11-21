@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        
+        <h2>Login</h2>
+        @if (TempData["Error"] != null)
+        {
+            <div class="btn btn-danger">@TempData["Error"]</div>
+        }
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Name:</label>
+                <input type="text" class="form-control" name="Name" id="Name" placeholder=" Enter NGO Name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" name="Password" id="Password" placeholder="Enter Password" required>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

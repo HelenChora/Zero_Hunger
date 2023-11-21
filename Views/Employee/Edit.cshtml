@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Edit</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div>@TempData["msg"]</div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" name="name" id="name" value="@ViewBag.Name" required>
+    </div>
+    <div class="form-group">
+        <label for="contactInfo">Contact Info:</label>
+        <input type="text" class="form-control" name="contactInfo" id="contactInfo" value="@ViewBag.ContactInfo" required>
+    </div>
+        
+    <button class="btn btn-primary" type="submit">Save</button>
+}

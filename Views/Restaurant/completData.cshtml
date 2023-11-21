@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "RejectData";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Completed Request</h2>
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Restaurant Name</th>
+                <th>Preservation Time</th>
+                <th>Collection Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var restaurant in Model)
+            {
+                foreach (var collectRequest in restaurant.CollectRequests)
+                {
+                    if (collectRequest.Status == "Complete")
+                    {
+                        <tr>
+                            <td>@restaurant.Name</td>
+                            <td>@collectRequest.PreservationTime</td>
+                            <td>@collectRequest.CollectionDate</td>
+                            <td>@collectRequest.Status</td>
+                        </tr>
+                    }
+                }
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Request found.</p>
+}

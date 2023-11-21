@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Add</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="btn btn-success">@TempData["msg"]</div>
+}
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" class="form-control" name="Name" id="Name" placeholder=" Enter Employee Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="contactinfo">ContactInfo:</label>
+        <input type="text" class="form-control" name="ContactInfo" id="ContactInfo" placeholder=" Enter Employee Contact Info" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+}

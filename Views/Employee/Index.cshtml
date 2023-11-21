@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Employees Details</h2>
+<br />
+<a href="/Employee/Add/" class="btn btn-primary">Add</a>
+
+<br />
+<br />
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact Info</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.Name</td>
+                    <td>@emp.ContactInfo</td>
+                    <td>
+                        <a href="/Employee/Edit/@emp.ID">Edit</a> |
+                        <a href="/Employee/Delete/@emp.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No restaurants found.</p>
+}

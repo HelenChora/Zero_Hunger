@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@model List<ZeroHunger.EF.FoodDistribution>
+
+
+<h2>Foods Distributions</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">@TempData["msg"]</div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="requestId">Collection:</label>
+        <select id="requestId" name="CollectRequestID" class="form-control">
+            <option value="">Select a Collection</option>
+            @foreach (var collection in ViewBag.Collections)
+            {
+                if (collection.Status == "Accpect" && collection.EmployeeId != null)
+                {
+                    <option value="@collection.ID">@collection.ID</option>
+
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Employee:</label>
+        <select id="employeeId" name="EmployeeID" class="form-control">
+            <option value="">Select an employee</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.ID">@employee.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Date:</label>
+        <input class="form-control" type="date" name="Date" />
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Quantity:</label>
+        <input class="form-control" type="number" name="Quantity" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Employee</button>
+}
+<br />
+<hr />
+<br />
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Collect Request ID</th>
+                <th>Employee Name</th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var food in Model)
+            {
+                if (food.RequestType == "Pending")
+                {
+                    <tr>
+                        <td>@food.CollectRequestID</td>
+                        <td>@food.Employee.Name</td>
+                        <td>@food.Date</td>
+                        <td>@food.Quantity</td>
+                        <td>@food.RequestType</td>
+                        <td>
+                            <a href="/FoodDistribution/Complete/@food.CollectRequestID" class="btn btn-success">Completed</a>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Request found.</p>
+}

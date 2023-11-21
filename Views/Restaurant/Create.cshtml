@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@model List<ZeroHunger.EF.Restaurant>
+
+<h2>Collect Requests</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">@TempData["msg"]</div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="requestId">Restaurant:</label>
+        <select id="requestId" name="RestaurantID" class="form-control">
+            <option value="">Select a Collection</option>
+            @foreach (var collection in ViewBag.Name)
+            {
+                <option value="@collection.ID">@collection.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Preservation Time:</label>
+        <input class="form-control" type="time" name="PreservationTime" />
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Collection Date:</label>
+        <input class="form-control" type="date" name="CollectionDate" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Request</button>
+}
+<br />
+<hr />
+<br />
+
+<br />
+<a href="/Restaurant/AccpectData/" class="btn btn-primary">Accpected Request</a>
+<a href="/Restaurant/RejectData/" class="btn btn-primary">Rejected Request</a>
+
+<br />
+<br />
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Restaurant Name</th>
+                <th>Preservation Time</th>
+                <th>Collection Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var restaurant in Model)
+            {
+                foreach (var collectRequest in restaurant.CollectRequests)
+                {
+                    if (collectRequest.Status == "Pending")
+                    {
+                        <tr>
+                            <td>@restaurant.Name</td>
+                            <td>@collectRequest.PreservationTime</td>
+                            <td>@collectRequest.CollectionDate.DayOfWeek</td>
+                            <td>@collectRequest.Status</td>
+                            <td>
+                                <a href="/Restaurant/Accpect/@collectRequest.ID" class="btn btn-success">Accept</a>
+                                <a href="/Restaurant/Reject/@collectRequest.ID" class="btn btn-danger">Reject</a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Request found.</p>
+}

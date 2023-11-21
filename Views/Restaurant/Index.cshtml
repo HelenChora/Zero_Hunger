@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewData["Title"] = "Create Collect Request";
+    var restaurantId = ViewBag.RestaurantId;
+}
+
+<h1>Restaurants</h1>
+
+<br />
+<a href="/Restaurant/Add/" class="btn btn-primary">Add</a>
+
+<br />
+<br />
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact Info</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var restaurant in Model)
+            {
+                <tr>
+                    <td>@restaurant.Name</td>
+                    <td>@restaurant.ContactInfo</td>
+                    <td>@restaurant.Address</td>
+                    <td>
+                        <a href="/Restaurant/Edit/@restaurant.ID">Edit</a> |
+                        <a href="/Restaurant/Delete/@restaurant.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No restaurants found.</p>
+}

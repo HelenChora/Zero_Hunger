@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Assign Employee";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Assign Employee to Request</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">@TempData["msg"]</div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="requestId">Request:</label>
+        <select id="requestId" name="requestId" class="form-control">
+            <option value="">Select a request</option>
+            @foreach (var restaurants in Model)
+            {
+                foreach (var request in ViewBag.Requests)
+                {
+                    if (request.Status == "Accpect" && restaurants.ID == request.RestaurantID)
+                    {
+                        <option value="@request.ID">@restaurants.Name</option>
+
+                    }
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="employeeId">Employee:</label>
+        <select id="employeeId" name="employeeId" class="form-control">
+            <option value="">Select an employee</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.ID">@employee.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Employee</button>
+}
